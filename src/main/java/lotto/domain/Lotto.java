@@ -7,14 +7,14 @@ import java.util.Set;
 public class Lotto {
     private final List<Integer> numbers;
 
-    private static final int MIN_LOTTO_NUM = 1;
-    private static final int MAX_LOTTO_NUM = 45;
-    private static final int LOTTO_NUMBER_COUNT = 6;
+    public static final int MIN_LOTTO_NUM = 1;
+    public static final int MAX_LOTTO_NUM = 45;
+    public static final int LOTTO_NUMBER_COUNT = 6;
 
     private static final String ERROR_PREFIX = "[ERROR] ";
     private static final String ERROR_INVALID_SIZE = ERROR_PREFIX + "로또 번호는 " + LOTTO_NUMBER_COUNT + "개여야 합니다.";
     private static final String ERROR_DUPLICATE_NUMBERS = ERROR_PREFIX + "로또 번호는 중복될 수 없습니다.";
-    private static final String ERROR_INVALID_RANGE = ERROR_PREFIX + "로또 번호는 " + MIN_LOTTO_NUM + "부터 " + MAX_LOTTO_NUM + " 사이여야 합니다.";
+    private static final String ERROR_INVALID_RANGE = ERROR_PREFIX + "로또 번호는 " + MIN_LOTTO_NUM + "부터 " + MAX_LOTTO_NUM + " 사이여야 합니다;";
 
 
     public Lotto(List<Integer> numbers) {
