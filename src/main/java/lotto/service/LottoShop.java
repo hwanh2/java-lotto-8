@@ -11,7 +11,7 @@ public class LottoShop {
     private static final int LOTTO_PRICE = 1000;
     private static final String ERROR_PREFIX = "[ERROR] ";
     private static final String ERROR_INVALID_AMOUNT = ERROR_PREFIX + "구입 금액은 1000원 단위여야 합니다.";
-    private static final String ERROR_NEGATIVE_AMOUNT = ERROR_PREFIX + "구입 금액은 0보다 커야 합니다.";
+    private static final String ERROR_MINIMUM_AMOUNT = ERROR_PREFIX + "구입 금액은 1000원 이상이어야 합니다.";
 
     private final RandomLottoGenerator generator;
 
@@ -26,13 +26,13 @@ public class LottoShop {
     }
 
     private void validateAmount(int amount) {
-        validatePositiveAmount(amount);
+        validateMinimumAmount(amount);
         validateDivisibleByLottoPrice(amount);
     }
 
-    private void validatePositiveAmount(int amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException(ERROR_NEGATIVE_AMOUNT);
+    private void validateMinimumAmount(int amount) {
+        if (amount < LOTTO_PRICE) {
+            throw new IllegalArgumentException(ERROR_MINIMUM_AMOUNT);
         }
     }
 
