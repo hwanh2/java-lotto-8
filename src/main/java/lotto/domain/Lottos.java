@@ -34,5 +34,19 @@ public class Lottos {
 
         return result;
     }
+
+    public double calculateProfitRate(WinningNumbers winningNumbers, int purchaseAmount) {
+        Map<LottoRank, Long> result = calculateResult(winningNumbers);
+        long totalPrize = calculateTotalPrize(result);
+        return (double) totalPrize / purchaseAmount * 100;
+    }
+
+    private long calculateTotalPrize(Map<LottoRank, Long> result) {
+        long total = 0;
+        for (Map.Entry<LottoRank, Long> rankEntry : result.entrySet()) {
+            total += rankEntry.getKey().getPrize() * rankEntry.getValue();
+        }
+        return total;
+    }
 }
 
