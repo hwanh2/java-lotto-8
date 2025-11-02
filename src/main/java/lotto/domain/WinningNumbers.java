@@ -10,10 +10,14 @@ public class WinningNumbers {
     private static final String ERROR_BONUS_DUPLICATE = ERROR_PREFIX + "보너스 번호는 당첨 번호와 중복될 수 없습니다.";
     private static final String ERROR_BONUS_RANGE = ERROR_PREFIX + "보너스 번호는 " + Lotto.MIN_LOTTO_NUM + "부터 " + Lotto.MAX_LOTTO_NUM + " 사이여야 합니다.";
 
-    public WinningNumbers(List<Integer> winningNumbers, int bonusNumber) {
+    private WinningNumbers(List<Integer> winningNumbers, int bonusNumber) {
         this.winningLotto = new Lotto(winningNumbers);
         validateBonusNumber(bonusNumber);
         this.bonusNumber = bonusNumber;
+    }
+
+    public static WinningNumbers createWithBonus(List<Integer> winningNumbers, int bonusNumber) {
+        return new WinningNumbers(winningNumbers, bonusNumber);
     }
 
     private void validateBonusNumber(int bonusNumber) {
