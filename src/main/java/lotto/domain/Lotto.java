@@ -48,4 +48,14 @@ public class Lotto {
             }
         }
     }
+
+    public long countMatches(Lotto other) {
+        return numbers.stream()
+                .filter(other.numbers::contains)
+                .count();
+    }
+
+    public boolean contains(int number) {
+        return numbers.contains(number);
+    }
 }
