@@ -38,33 +38,45 @@ public class LottoController {
     }
 
     private Lottos purchaseLottos() {
-        return RetryHandler.retry(() -> {
-            String input = inputView.inputPurchaseAmount();
-            int amount = Parser.parseAmount(input);
-            return lottoShop.purchaseLottos(amount);
-        });
+        return RetryHandler.retry(
+                () -> {
+                    String input = inputView.inputPurchaseAmount();
+                    int amount = Parser.parseAmount(input);
+                    return lottoShop.purchaseLottos(amount);
+                },
+                outputView::printErrorMessage
+        );
     }
 
     private WinningNumbers getWinningNumbers() {
-        return RetryHandler.retry(() -> {
-            List<Integer> winningNumbersList = getWinningNumbersList();
-            int bonusNumber = getBonusNumber();
-            return WinningNumbers.createWithBonus(winningNumbersList, bonusNumber);
-        });
+        return RetryHandler.retry(
+                () -> {
+                    List<Integer> winningNumbersList = getWinningNumbersList();
+                    int bonusNumber = getBonusNumber();
+                    return WinningNumbers.createWithBonus(winningNumbersList, bonusNumber);
+                },
+                outputView::printErrorMessage
+        );
     }
 
     private List<Integer> getWinningNumbersList() {
-        return RetryHandler.retry(() -> {
-            String input = inputView.inputWinningNumbers();
-            return Parser.parseLottoNumbers(input);
-        });
+        return RetryHandler.retry(
+                () -> {
+                    String input = inputView.inputWinningNumbers();
+                    return Parser.parseLottoNumbers(input);
+                },
+                outputView::printErrorMessage
+        );
     }
 
     private int getBonusNumber() {
-        return RetryHandler.retry(() -> {
-            String input = inputView.inputBonusNumber();
-            return Parser.parseBonusNumber(input);
-        });
+        return RetryHandler.retry(
+                () -> {
+                    String input = inputView.inputBonusNumber();
+                    return Parser.parseBonusNumber(input);
+                },
+                outputView::printErrorMessage
+        );
     }
 }
 
