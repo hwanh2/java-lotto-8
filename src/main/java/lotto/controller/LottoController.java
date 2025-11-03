@@ -31,7 +31,7 @@ public class LottoController {
         Map<LottoRank,Long> result = lottos.calculateResult(winningNumbers);
         outputView.printWinningStatistics(result);
 
-        int purchaseAmount = lottos.size() * 1000;
+        int purchaseAmount = lottos.size() * LottoShop.LOTTO_PRICE;
         double profitRate = lottos.calculateProfitRate(winningNumbers, purchaseAmount);
         outputView.printProfitRate(profitRate);
     }
