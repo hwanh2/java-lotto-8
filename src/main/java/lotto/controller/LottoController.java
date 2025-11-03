@@ -5,6 +5,7 @@ import lotto.domain.Lottos;
 import lotto.domain.WinningNumbers;
 import lotto.parser.Parser;
 import lotto.service.LottoShop;
+import lotto.util.RetryHandler;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -37,49 +38,33 @@ public class LottoController {
     }
 
     private Lottos purchaseLottos() {
-        while (true) {
-            try {
-                String input = inputView.inputPurchaseAmount();
-                int amount = Parser.parseAmount(input);
-                return lottoShop.purchaseLottos(amount);
-            } catch (IllegalArgumentException e) {
-                outputView.printErrorMessage(e.getMessage());
-            }
-        }
+        return RetryHandler.retry(() -> {
+            String input = inputView.inputPurchaseAmount();
+            int amount = Parser.parseAmount(input);
+            return lottoShop.purchaseLottos(amount);
+        });
     }
 
     private WinningNumbers getWinningNumbers() {
-        while (true) {
-            try {
-                List<Integer> winningNumbersList = getWinningNumbersList();
-                int bonusNumber = getBonusNumber();
-                return WinningNumbers.createWithBonus(winningNumbersList, bonusNumber);
-            } catch (IllegalArgumentException e) {
-                outputView.printErrorMessage(e.getMessage());
-            }
-        }
+        return RetryHandler.retry(() -> {
+            List<Integer> winningNumbersList = getWinningNumbersList();
+            int bonusNumber = getBonusNumber();
+            return WinningNumbers.createWithBonus(winningNumbersList, bonusNumber);
+        });
     }
 
     private List<Integer> getWinningNumbersList() {
-        while (true) {
-            try {
-                String input = inputView.inputWinningNumbers();
-                return Parser.parseLottoNumbers(input);
-            } catch (IllegalArgumentException e) {
-                outputView.printErrorMessage(e.getMessage());
-            }
-        }
+        return RetryHandler.retry(() -> {
+            String input = inputView.inputWinningNumbers();
+            return Parser.parseLottoNumbers(input);
+        });
     }
 
     private int getBonusNumber() {
-        while (true) {
-            try {
-                String input = inputView.inputBonusNumber();
-                return Parser.parseBonusNumber(input);
-            } catch (IllegalArgumentException e) {
-                outputView.printErrorMessage(e.getMessage());
-            }
-        }
+        return RetryHandler.retry(() -> {
+            String input = inputView.inputBonusNumber();
+            return Parser.parseBonusNumber(input);
+        });
     }
 }
 
